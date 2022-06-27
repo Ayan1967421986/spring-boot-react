@@ -8,7 +8,6 @@ class CardEdit extends Component {
     emptyItem = {
         cardHolderName: '',
         cardNumber: '',
-        balance: '',
         cardLimit: ''
     };
 
@@ -70,11 +69,6 @@ async handleSubmit(event) {
                         <Label for="cardNumber">Card Number</Label>
                         <Input type="text" name="cardNumber" id="cardNumber" value={item.cardNumber || ''}
                                onChange={this.handleChange} autoComplete="cardNumber"/>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="balance">Balance</Label>
-                        <Input type="text" name="balance" id="balance" value={item.balance || ''}
-                               onChange={this.handleChange} autoComplete="balance"/>
                     </FormGroup>
                     <FormGroup>
                         <Label for="cardLimit">Card Limit</Label>

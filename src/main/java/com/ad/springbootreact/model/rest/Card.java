@@ -1,42 +1,32 @@
-//package com.ad.springbootreact.model.rest;
-//
-//import lombok.Getter;
-//import lombok.Setter;
-//
-//import javax.persistence.Entity;
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.Id;
-//import javax.persistence.Table;
-//import java.math.BigDecimal;
-//
-//@Entity
-//@Getter
-//@Setter
-//@Table(name = "card")
-//public class Card {
-//    @Id
-//    @GeneratedValue
-//    Long id;
-//
-//    String cardHolderName;
-//
-//    String cardNumber;
-//    BigDecimal balance;
-//    BigDecimal cardLimit;
-//
-//    public Card() {}
-//    public Card(String cardHolderName, String cardNumber, BigDecimal balance, BigDecimal cardLimit){
-//        this.cardHolderName = cardHolderName;
-//        this.cardNumber = cardNumber;
-//        this.balance = balance;
-//        this.cardLimit = cardLimit;
-//    }
-//    public Card(Long id, String cardHolderName, String cardNumber, BigDecimal balance, BigDecimal cardLimit){
-//        this.id = id;
-//        this.cardHolderName = cardHolderName;
-//        this.cardNumber = cardNumber;
-//        this.balance = balance;
-//        this.cardLimit = cardLimit;
-//    }
-//
-//}
+package com.ad.springbootreact.model.rest;
+
+import com.ad.springbootreact.validation.annotation.CreditCardNumberConstraint;
+import lombok.AllArgsConstructor;
+import lombok.Value;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import java.math.BigDecimal;
+
+@Value
+@AllArgsConstructor
+public class Card {
+
+    Long id;
+
+    @NotBlank(message = "cardHolderName is mandatory!!!")
+    String cardHolderName;
+
+    @NotBlank(message = "cardNumber is mandatory!!!")
+    @Length(max = 19, message = "cardNumber must be less than 19 characters!!!")
+    @Pattern(regexp = "^[0-9\\s\\-]+$", message = "cardNumber should contain only digits & dashes !!!")
+    @CreditCardNumberConstraint(message = "cardNumber should be compatible with Luhn10!!!")
+    String cardNumber;
+
+    @NotNull(message = "cardLimit is mandatory!!!")
+    BigDecimal cardLimit;
+
+    BigDecimal balance;
+}
